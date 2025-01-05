@@ -9,5 +9,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">res.cloudinary.com</domain>
         <domain includeSubdomains="true">elderlms-tr8q.vercel.app</domain>
+        <domain includeSubdomains="true">vercel.app</domain>
     </domain-config>
 </network-security-config>

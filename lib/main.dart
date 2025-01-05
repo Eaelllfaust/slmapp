@@ -64,26 +64,6 @@ class _WebViewPageState extends State<WebViewPage> {
           await Future.delayed(const Duration(milliseconds: 500));
           setState(() => isLoading = false);
         }
-        
-        // Inject JavaScript to handle media content
-        await _controller.runJavaScript('''
-          // Convert HTTP Cloudinary URLs to HTTPS
-          document.querySelectorAll('img[src^="http://res.cloudinary.com"], video[src^="http://res.cloudinary.com"]').forEach(element => {
-            element.src = element.src.replace('http://', 'https://');
-          });
-          
-          // Handle source elements in video tags
-          document.querySelectorAll('source[src^="http://res.cloudinary.com"]').forEach(element => {
-            element.src = element.src.replace('http://', 'https://');
-          });
-          
-          // Force reload images and videos after URL update
-          document.querySelectorAll('img, video').forEach(element => {
-            const currentSrc = element.src;
-            element.src = '';
-            element.src = currentSrc;
-          });
-        ''');
       },
       onWebResourceError: (WebResourceError error) {
         debugPrint('WebView Error: ${error.description}');
@@ -92,7 +72,6 @@ class _WebViewPageState extends State<WebViewPage> {
         }
       },
       onNavigationRequest: (NavigationRequest request) {
-        // Allow all navigation requests
         return NavigationDecision.navigate;
       },
     );
